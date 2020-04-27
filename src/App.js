@@ -1,4 +1,9 @@
 import React from 'react';
+<<<<<<< HEAD
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import ProtectedRoute from './utils/ProtectedRoute';
+import './App.css';
+=======
 import { Link, Route } from 'react-router-dom';
 import './App.css';
 import RegisterForm from "./components/RegisterForm"
@@ -37,10 +42,18 @@ img{
 
 `
 
+>>>>>>> aaf1ee7d95f5bab84d46052c9e2c06f513fde0a6
 
 
 function App() {
   return (
+<<<<<<< HEAD
+    <Router>
+    <div className="App">
+     
+    </div>
+    </Router>
+=======
     <div className="App">
 
       
@@ -64,6 +77,7 @@ function App() {
 
       
     </div>
+>>>>>>> aaf1ee7d95f5bab84d46052c9e2c06f513fde0a6
   );
 }
 

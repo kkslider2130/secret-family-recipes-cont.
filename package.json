@@ -1,9 +1,27 @@
 {
+<<<<<<< HEAD
+  "name": "app",
+=======
   "name": "recipe-app",
+>>>>>>> aaf1ee7d95f5bab84d46052c9e2c06f513fde0a6
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
+<<<<<<< HEAD
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "axios": "^0.19.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-icons": "^3.10.0",
+    "react-loader-spinner": "^3.1.14",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1",
+    "redux": "^4.0.5",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
+=======
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
@@ -16,6 +34,7 @@
     "reactstrap": "^8.4.1",
     "styled-components": "^5.1.0",
     "yup": "^0.28.4"
+>>>>>>> aaf1ee7d95f5bab84d46052c9e2c06f513fde0a6
   },
   "scripts": {
     "start": "react-scripts start",
