@@ -1,14 +1,12 @@
-import axios from "axios";
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
 import React, {useState, useEffect} from "react";
 import * as yup from "yup";
 import styled from 'styled-components';
-import companylogogreen from '../../src/company-logo-green.png';
+import companylogogreen from '../../company-logo-green.png';
 
 const MainContainer = styled.div`
 width: 80%;
 margin: 0 auto;
-
-
 
 .form {
   background: #fff;
@@ -30,7 +28,7 @@ h2{
     padding:10px;
     text-align:center;
     font-size:30px;
-    color: darkgray;
+    color: lightgray;
     
 }
 
@@ -43,8 +41,8 @@ input {
   }
 
 input[type="text"],
-input[type="email"],
-input[type="password"] {
+input[type="password"]
+{
 
     background: #fff;
     border: 1px solid #dbdbdb;
@@ -70,28 +68,23 @@ p{
   
 `
 
-
-
 const formSchema = yup.object().shape({
-    name: yup.string().required().min(3, "Name must be at least 3 characters"),
-    email: yup.string().email().required().min(6, "email must have at least 6 characters"),
-    password: yup.string().required().min(3, "Password must have at least 3 characters"),    
+    username: yup.string().required('*please enter username'),
+    password: yup.string().required('*please enter password'),    
   });
 
 
 
 
-  export default function RegisterUser() {
+  export default function LoginForm() {
 
     const [formState, setFormState] = useState({
-      name: "",
-      email: "",
+      username: "",
       password: "",
     });
 
     const [errors, setErrors] = useState({
-        name: "",
-        email: "",
+        username: "",
         password: "",
     })
 
@@ -125,14 +118,13 @@ const formSchema = yup.object().shape({
       //axios post request
       const formSubmit = e => {
         e.preventDefault();
-        axios
-          .post("https://reqres.in/api/users", formState) 
+        axiosWithAuth()
+          .post("/auth/login", formState) 
           .then(res => {
             setPost([...post, res.data]);
 
             setFormState({
-              name: "",
-              email: "",
+              username: "",
               password: "",
             });
           })
@@ -147,6 +139,7 @@ const formSchema = yup.object().shape({
             ...formState,
             [event.target.name]:
               event.target.name === "checkbox" ? event.target.checked : event.target.value
+              
           };
             validateChange(event);
             setFormState(newFormData);
@@ -156,29 +149,17 @@ const formSchema = yup.object().shape({
         <MainContainer>
             
             <form className="form" onSubmit={formSubmit}>
-            <img src = {companylogogreen} className = "company-logo" alt="company-logo"/>
+            <img src = {companylogogreen} className = "company-logo" alt="company-logo"/>            
                     <input
                     className="form__input"
-                    id="name"
+                    id="username"
                     type="text"
-                    name="name"
+                    name="username"
                     placeholder="username" 
-                    value={formState.name}
+                    value={formState.username}
                     onChange={inputChange}
                     />
-                    {errors.name.length > 0 ? (<p className="error">{errors.name}</p> ): null}
-                
-
-                    <input
-                    className="form__input"
-                    id="email"
-                    type="text"
-                    name="email"
-                    placeholder="email" 
-                    value={formState.email}
-                    onChange={inputChange}
-                    />
-                    {errors.email.length > 0 ? (<p className="error"> {errors.email}</p>) : null}
+                    {errors.username.length > 0 ? (<p className="error">{errors.username}</p> ): null}                    
                 
                     <input
                     className="form__input"
@@ -193,8 +174,8 @@ const formSchema = yup.object().shape({
                  
                     
                 
-                <pre>{JSON.stringify(post, null, 2)}</pre>
-                <button className="btn" disabled={submitDisabled}>Sign Up</button>
+                
+                <button className="btn" disabled={submitDisabled} push='/recipe'>Login</button>
             </form>
         </MainContainer>
       )

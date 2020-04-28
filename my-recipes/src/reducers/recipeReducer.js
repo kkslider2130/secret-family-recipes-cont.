@@ -1,5 +1,15 @@
+import {
+    LOGIN_START,
+    LOGIN_SUCCESS,
+    LOGIN_FAILURE,
+
+} from '../actions/index';
+
+
+
+
 const initialState = {
-    recipeList= [],
+    recipeList: [],
     isLoading: false,
     isLoggedIn: false,
     error: '',
@@ -34,7 +44,7 @@ const initialState = {
     }
 }
 
-export const Reducer = (state = initialState, action) => {
+const recipeReducer = (state = initialState, action) => {
     switch(action.type){
       //Login
      case LOGIN_START:
@@ -55,7 +65,10 @@ export const Reducer = (state = initialState, action) => {
              error: action.payload,
              isLoading: false 
          }
+    default: return state;
     }
 }
+
+export default recipeReducer;
 
 
