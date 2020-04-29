@@ -4,6 +4,7 @@ import * as yup from "yup";
 import styled from 'styled-components';
 import companylogogreen from '../../company-logo-green.png';
 
+
 const MainContainer = styled.div`
 width: 80%;
 margin: 0 auto;
@@ -127,6 +128,7 @@ const formSchema = yup.object().shape({
               username: "",
               password: "",
             });
+          
           })
           .catch(err => {
             console.log(err.res);
@@ -175,7 +177,7 @@ const formSchema = yup.object().shape({
                     
                 
                 
-                <button className="btn" disabled={submitDisabled} push='/recipe'>Login</button>
+                <button className="btn" disabled={submitDisabled} push='/recipes'>Login</button>
             </form>
         </MainContainer>
       )

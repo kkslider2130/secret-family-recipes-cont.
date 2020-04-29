@@ -5,20 +5,19 @@ import CreateRecipe from './components/Recipes/CreateRecipe';
 import './App.css';
 import Nav from './components/Navigation/Nav';
 
-
-
-   function App() {
-     return (
+function App() {
+  return (
 
    <Router>
     <div className="App">
+    <Switch>
      <Nav />
-     <Switch>
-     <ProtectedRoute component={CreateRecipe} path='/recipe' />
+    
+     <ProtectedRoute exact path='/recipes' component={CreateRecipe}  />
      </Switch>
     </div>
     </Router>
-     )
+     );
 }
 
 
