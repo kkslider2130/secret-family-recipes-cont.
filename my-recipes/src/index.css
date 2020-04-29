@@ -5,8 +5,22 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+<<<<<<< HEAD:my-recipes/src/index.css
   background-size: 200% 100% !important;
   height: 100vh;
+=======
+
+  font-family: $font-family;
+    font-size: $font-size;
+    background-size: 200% 100% !important;
+    animation: move 10s ease infinite;
+    transform: translate3d(0, 0, 0);    
+    height: 100vh;
+
+    
+
+
+>>>>>>> 00064d2e91ee8d55d523c8292c0ff01a8f0dc86b:src/index.css
 }
 
 code {
