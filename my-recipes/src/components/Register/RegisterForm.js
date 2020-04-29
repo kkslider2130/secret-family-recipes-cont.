@@ -1,12 +1,14 @@
-import axios from "axios";
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
 import React, {useState, useEffect} from "react";
 import * as yup from "yup";
 import styled from 'styled-components';
-import companylogogreen from '../../src/company-logo-green.png';
+import companylogogreen from '../../../src/company-logo-green.png';
 
 const MainContainer = styled.div`
 width: 80%;
 margin: 0 auto;
+
+
 
 .form {
   background: #fff;
@@ -28,7 +30,7 @@ h2{
     padding:10px;
     text-align:center;
     font-size:30px;
-    color: lightgray;
+    color: darkgray;
     
 }
 
@@ -41,8 +43,7 @@ input {
   }
 
 input[type="text"],
-input[type="password"]
-{
+input[type="password"] {
 
     background: #fff;
     border: 1px solid #dbdbdb;
@@ -68,24 +69,26 @@ p{
   
 `
 
+
+
 const formSchema = yup.object().shape({
-    username: yup.string().required('*please enter username'),
-    password: yup.string().required('*please enter password'),    
+    username: yup.string().required().min(3, "Username must be at least 3 characters"),
+    password: yup.string().required().min(3, "Password must have at least 3 characters"),    
   });
 
 
 
 
-  export default function LoginForm() {
+  export default function RegisterUser() {
 
     const [formState, setFormState] = useState({
       username: "",
-      password: "",
+      password: ""
     });
 
     const [errors, setErrors] = useState({
         username: "",
-        password: "",
+        password: ""
     })
 
     const [submitDisabled, setSubmitDisabled] = useState(true);
@@ -118,14 +121,14 @@ const formSchema = yup.object().shape({
       //axios post request
       const formSubmit = e => {
         e.preventDefault();
-        axios
-          .post("https://reqres.in/api/users", formState) 
+        axiosWithAuth()
+          .post("/auth/register", formState) 
           .then(res => {
             setPost([...post, res.data]);
 
             setFormState({
               username: "",
-              password: "",
+              password: ""
             });
           })
           .catch(err => {
@@ -139,7 +142,6 @@ const formSchema = yup.object().shape({
             ...formState,
             [event.target.name]:
               event.target.name === "checkbox" ? event.target.checked : event.target.value
-              
           };
             validateChange(event);
             setFormState(newFormData);
@@ -149,7 +151,7 @@ const formSchema = yup.object().shape({
         <MainContainer>
             
             <form className="form" onSubmit={formSubmit}>
-            <img src = {companylogogreen} className = "company-logo" alt="company-logo"/>            
+            <img src = {companylogogreen} className = "company-logo" alt="company-logo"/>
                     <input
                     className="form__input"
                     id="username"
@@ -159,7 +161,8 @@ const formSchema = yup.object().shape({
                     value={formState.username}
                     onChange={inputChange}
                     />
-                    {errors.username.length > 0 ? (<p className="error">{errors.username}</p> ): null}                    
+                    {errors.username.length > 0 ? (<p className="error">{errors.username}</p> ): null}
+                
                 
                     <input
                     className="form__input"
@@ -174,8 +177,8 @@ const formSchema = yup.object().shape({
                  
                     
                 
-                <pre>{JSON.stringify(post, null, 2)}</pre>
-                <button className="btn" disabled={submitDisabled}>Login</button>
+                
+                <button className="btn" disabled={submitDisabled}>Sign Up</button>
             </form>
         </MainContainer>
       )
