@@ -1,11 +1,14 @@
 import axios from 'axios';
 
-export const axiosWithAuth = () => {
-    const token = window.localStorage.getItem('token');
+export default() => {
+    const token = localStorage.getItem('token');
     return axios.create({
+        
+        baseURL: 'https://family-recipes-api-server.herokuapp.com/api',
+        
         headers: {
-            authorization: token
-        },
-        baseURL: 'https://family-recipes-api-server.herokuapp.com/api'
+            authorization : `${token}`
+        }
+       
     })
 };

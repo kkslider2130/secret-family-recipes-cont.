@@ -1,8 +1,10 @@
-import { axiosWithAuth } from '../../utils/axiosWithAuth';
+import axiosWithAuth from '../../utils/axiosWithAuth';
 import React, {useState, useEffect} from "react";
+import { useHistory } from 'react-router';
 import * as yup from "yup";
 import styled from 'styled-components';
 import companylogogreen from '../../company-logo-green.png';
+
 
 
 const MainContainer = styled.div`
@@ -77,7 +79,9 @@ const formSchema = yup.object().shape({
 
 
 
-  export default function LoginForm() {
+  export default function LoginForm( props ) {
+
+    const history= useHistory();
 
     const [formState, setFormState] = useState({
       username: "",
@@ -122,13 +126,16 @@ const formSchema = yup.object().shape({
         axiosWithAuth()
           .post("/auth/login", formState) 
           .then(res => {
+            console.log('form res', res)
+            console.log('res data token', res.data.token)
+            localStorage.setItem('token', res.data.token)
             setPost([...post, res.data]);
 
             setFormState({
               username: "",
               password: "",
             });
-          
+          history.push('/recipes')
           })
           .catch(err => {
             console.log(err.res);

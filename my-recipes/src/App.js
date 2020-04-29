@@ -4,6 +4,9 @@ import ProtectedRoute from './utils/ProtectedRoute';
 import CreateRecipe from './components/Recipes/CreateRecipe';
 import './App.css';
 import Nav from './components/Navigation/Nav';
+import AddRecipe from './components/RecipeForm';
+import LoginForm from './components/Login/LoginForm';
+import RegisterForm from './components/Register/RegisterForm';
 
 function App() {
   return (
@@ -12,8 +15,18 @@ function App() {
     <div className="App">
     <Switch>
      <Nav />
+      
+     <Route exact path="/register"> 
+          <RegisterForm />
+     </Route>
+      <Route exact path="/login"> 
+          <LoginForm /> 
+     </Route>
+  
+     
     
-     <ProtectedRoute exact path='/recipes' component={CreateRecipe}  />
+     <ProtectedRoute exact path='/recipes' component={CreateRecipe}
+      />
      </Switch>
     </div>
     </Router>
