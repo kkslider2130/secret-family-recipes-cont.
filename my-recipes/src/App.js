@@ -4,17 +4,36 @@ import ProtectedRoute from './utils/ProtectedRoute';
 import CreateRecipe from './components/Recipes/CreateRecipe';
 import './App.css';
 import Nav from './components/Navigation/Nav';
+import AddRecipe from './components/RecipeForm';
+import LoginForm from './components/Login/LoginForm';
+import RegisterForm from './components/Register/RegisterForm';
 
 function App() {
   return (
-
-   <Router>
+  <Router>
     <div className="App">
-    <Switch>
-     <Nav />
     
-     <ProtectedRoute exact path='/recipes' component={CreateRecipe}  />
-     </Switch>
+    <Nav />
+    
+    <Switch>
+  
+    <Route exact path="/register">
+       <RegisterForm />
+    </Route>    
+    
+    <Route exact path="/login">
+        <LoginForm />
+    </Route>
+
+    <ProtectedRoute exact path='/recipes'>
+        <AddRecipe />
+  </ProtectedRoute>
+  
+  {/* <ProtectedRoute exact path='/recipes'>
+        <CreateRecipe />
+  </ProtectedRoute> */}
+     
+    </Switch>
     </div>
     </Router>
      );

@@ -40,17 +40,12 @@ function Nav() {
 <NavBarContainer>
   <nav className="navigation">          
   <img src = {companylogo} className = "company-logo" alt="company-logo"/>          
-      <Link to='/'>Sign Up</Link>
-      <Link to='/Order' >Log in</Link>       
+      <Link to='/register'>Sign Up</Link>
+      <Link to='/login' >Log in</Link>       
   </nav>
 </NavBarContainer>
 
-<Route exact path="/">
-  <RegisterForm />
-</Route>    
-<Route path="/Order">
-  <LoginForm />
-</Route>
 </div>
     )};
 export default Nav;
+

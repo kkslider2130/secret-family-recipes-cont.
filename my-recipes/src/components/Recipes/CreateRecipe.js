@@ -3,8 +3,9 @@ import React from 'react';
 function CreateRecipe() {
     return (
         <div>
-            TESTING
+            <h1>TESTING</h1>
         </div>
     )
 }
 export default CreateRecipe;
+
