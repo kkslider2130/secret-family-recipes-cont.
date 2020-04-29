@@ -10,25 +10,30 @@ import RegisterForm from './components/Register/RegisterForm';
 
 function App() {
   return (
-
-   <Router>
+  <Router>
     <div className="App">
+    
     <Nav />
+    
     <Switch>
   
-     <Route exact path="/register">
-  <RegisterForm />
-</Route>    
-<Route exact path="/login">
-  <LoginForm />
-</Route>
-      {/* <RegisterForm />
-      <LoginForm />  */}
+    <Route exact path="/register">
+       <RegisterForm />
+    </Route>    
     
+    <Route exact path="/login">
+        <LoginForm />
+    </Route>
+
     <ProtectedRoute exact path='/recipes'>
-      <CreateRecipe />
-    </ProtectedRoute>
-     </Switch>
+        <AddRecipe />
+  </ProtectedRoute>
+  
+  {/* <ProtectedRoute exact path='/recipes'>
+        <CreateRecipe />
+  </ProtectedRoute> */}
+     
+    </Switch>
     </div>
     </Router>
      );
