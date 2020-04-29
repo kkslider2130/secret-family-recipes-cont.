@@ -15,17 +15,12 @@ function App() {
     <div className="App">
     <Switch>
      <Nav />
-      
-     <Route exact path="/register"> 
-          <RegisterForm />
-     </Route>
-      <Route exact path="/login"> 
-          <LoginForm /> 
-     </Route>
-  
-     
+      <RegisterForm />
+      <LoginForm /> 
     
-     <ProtectedRoute exact path='/recipes' component={CreateRecipe}
+    <ProtectedRoute exact path='/recipes'>
+      <CreateRecipe />
+    </ProtectedRoute>
       />
      </Switch>
     </div>
