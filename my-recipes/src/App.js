@@ -13,15 +13,21 @@ function App() {
 
    <Router>
     <div className="App">
+    <Nav />
     <Switch>
-     <Nav />
-      <RegisterForm />
-      <LoginForm /> 
+  
+     <Route exact path="/register">
+  <RegisterForm />
+</Route>    
+<Route exact path="/login">
+  <LoginForm />
+</Route>
+      {/* <RegisterForm />
+      <LoginForm />  */}
     
     <ProtectedRoute exact path='/recipes'>
       <CreateRecipe />
     </ProtectedRoute>
-      />
      </Switch>
     </div>
     </Router>

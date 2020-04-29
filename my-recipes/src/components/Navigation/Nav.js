@@ -44,12 +44,7 @@ function Nav() {
       <Link to='/login' >Log in</Link>       
   </nav>
 </NavBarContainer>
-<Route exact path="/register">
-  <RegisterForm />
-</Route>    
-<Route exact path="/login">
-  <LoginForm />
-</Route>
+
 </div>
     )};
 export default Nav;
