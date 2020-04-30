@@ -1,30 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axiosWithAuth from '../../utils/axiosWithAuth';
+import { useParams, useHistory } from 'react-router-dom';
+
+const initialRecipe = {
+    id: '',
+    user_id: '',
+    recipe_name: '',
+    prep_time: '',
+    cook_time: '',
+    serving_size: '',
+    description: ''
+}
+
 
 const UpdateRecipes = () => {
-const [myRecipes, setMyRecipes] = useState([]);
-    useEffect(() => {
-        axiosWithAuth()
-        .get('/recipes')
-        .then(res => {
-            console.log(res)
-            setRecipes(res.data.recipe);
-        })
-        .catch(err => console.log({err}))
-    }, []); 
+const { push } = useHistory();
+const { id } = useParams();
+const [updateRecipes, setUpdateRecipes] = useState(initialRecipe);
+ 
 
 const handleChange = e => {
-    setMyRecipes({
-        ...myRecipes, [e.target.name] : e.target.value
+ setUpdateRecipes({
+        ...updateRecipes, [e.target.name] : e.target.value
     })
 };
 
-const handleSubmit = e => {
+const handleSubmit = (e, id) => {
     e.preventDefault();
     axiosWithAuth()
-    .put(`recipes/${id}`, myRecipes)
+    .put(`/recipes/${id}`, updateRecipes)
     .then(res => {
-        setMyRecipes(res.data.recipe)
+        console.log('put res', res)
+     setUpdateRecipes(res.data.recipe)
+     push('/home')
     })
     .catch(err => console.log({err}))
 }
@@ -39,7 +47,7 @@ return(
                 type='text'
                 name='recipe_name'
                 placeholder='Recipe Name'
-                value={myRecipe.recipe_name}
+                value={updateRecipes.recipe_name}
                 onChange={handleChange}
                 />
             <input
@@ -48,7 +56,7 @@ return(
                 type='text'
                 name='prep_time'
                 placeholder='Prep Time'
-                value={myRecipe.prep_time}
+                value={updateRecipes.prep_time}
                 onChange={handleChange}
                 />
             <input  
@@ -57,7 +65,7 @@ return(
                 type='text'
                 name='cook_time'
                 placeholder='Cook Time'
-                value={myRecipe.cook_time}
+                value={updateRecipes.cook_time}
                 onChange={handleChange}
                 />
             <input
@@ -66,7 +74,7 @@ return(
                 type='text'
                 name='serving_size'
                 placeholder='Serving Size'
-                value={myRecipe.serving_size}
+                value={updateRecipes.serving_size}
                 onChange={handleChange}
                 />
             <textarea
@@ -75,10 +83,10 @@ return(
                 type='text'
                 name='description'
                 placeholder='description'
-                value={myRecipe.description}
+                value={updateRecipes.description}
                 onChange={handleChange}
                 />
-        <button className='btn' onClick={handleSubmit}>Update Recipe</button>
+        <button className='btn' onClick={e => handleSubmit(e, id)}>Update Recipe</button>
         </form>
     </div>
 )};

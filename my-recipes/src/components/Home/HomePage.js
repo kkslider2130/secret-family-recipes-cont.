@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../utils/axiosWithAuth';
+import { useHistory } from 'react-router-dom';
 
 const GetRecipes = () => {
+    const { push } = useHistory();
     const [recipes, setRecipes] = useState([]);
     useEffect(() => {
         axiosWithAuth()
@@ -34,9 +36,9 @@ return(
             <div className='recipeText'> Cook Time: {recipe.cook_time}</div>
             <div className='recipeText'> Serving Size: {recipe.serving_size}</div>
            
-                {/* <div className='edit-button' onClick={editRecipe}>
+                <div className='edit-button' onClick={() => push(`/recipes/${recipe.id}`)}>
                      Edit
-                </div> */}
+                </div>
 
                 <div className='delete-button' onClick={e => deleteRecipe(e, recipe.id)
             }>
