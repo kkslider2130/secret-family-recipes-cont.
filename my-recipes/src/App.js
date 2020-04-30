@@ -8,29 +8,32 @@ import AddRecipe from './components/RecipeForm';
 import LoginForm from './components/Login/LoginForm';
 import RegisterForm from './components/Register/RegisterForm';
 import Home from './components/Home/HomePage';
+import HomeNav from './components/Home/HomeNav';
+
 
 function App() {
   return (
   <Router>
     <div className="App">
     
-    <Nav />
-    
-    <Switch>
-  
     <Route exact path="/register">
+    <Nav />
        <RegisterForm />
     </Route>    
     
     <Route exact path="/login">
+    <Nav />
         <LoginForm />
     </Route>
-
+   
+    <Switch>
+    
     <ProtectedRoute exact path='/recipes'>
         <AddRecipe />
   </ProtectedRoute>
   
   <ProtectedRoute exact path='/home'>
+      <HomeNav />
         <Home />
   </ProtectedRoute>
      
@@ -39,6 +42,5 @@ function App() {
     </Router>
      );
 }
-
 
 export default App;
