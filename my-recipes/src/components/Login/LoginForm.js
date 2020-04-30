@@ -129,13 +129,14 @@ const formSchema = yup.object().shape({
             console.log('form res', res)
             console.log('res data token', res.data.token)
             localStorage.setItem('token', res.data.token)
+            localStorage.setItem('user_id', JSON.stringify(res.data.id))
             setPost([...post, res.data]);
 
             setFormState({
               username: "",
               password: "",
             });
-          history.push('/recipes')
+          history.push('/home')
           })
           .catch(err => {
             console.log(err.res);

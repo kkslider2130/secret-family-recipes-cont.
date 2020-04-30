@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import companylogo from '../../company-logo.png';
 
 
-const NavBarContainer = styled.div`
+const HomeNavBarContainer = styled.div`
 background-color: whitesmoke;
 display: flex;
 width: 100%;
@@ -31,19 +31,22 @@ img{
 }
 
 `
-function Nav() {
+function HomeNav() {
     return (
 <div className="App">
 
-<NavBarContainer>
+<HomeNavBarContainer>
   <nav className="navigation">          
-  <img src = {companylogo} className = "company-logo" alt="company-logo"/>          
-      <Link to='/register'>Sign Up</Link>
-      <Link to='/login' >Log in</Link>       
+  <Link to='/home'>
+  <img src = {companylogo} className = "company-logo" alt="company-logo"/>   
+  </Link>       
+      <Link to='/newRecipe'>+ New Recipe</Link>
+      <Link to='/myRecipes' >+ My Recipes</Link>  
+      <Link to='/favorites' >+ Favorites</Link>        
   </nav>
-</NavBarContainer>
+</HomeNavBarContainer>
 
 </div>
     )};
-export default Nav;
+export default HomeNav;
 

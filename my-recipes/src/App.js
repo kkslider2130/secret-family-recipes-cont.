@@ -1,43 +1,52 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ProtectedRoute from './utils/ProtectedRoute';
-import CreateRecipe from './components/Recipes/CreateRecipe';
 import './App.css';
 import Nav from './components/Navigation/Nav';
 import AddRecipe from './components/RecipeForm';
 import LoginForm from './components/Login/LoginForm';
 import RegisterForm from './components/Register/RegisterForm';
+import Home from './components/Home/HomePage';
+import HomeNav from './components/Home/HomeNav';
+import UpdateRecipes from './components/Recipes/UpdateRecipes';
+
 
 function App() {
   return (
   <Router>
     <div className="App">
     
-    <Nav />
-    
-    <Switch>
-  
     <Route exact path="/register">
+    <Nav />
        <RegisterForm />
     </Route>    
     
     <Route exact path="/login">
+    <Nav />
         <LoginForm />
     </Route>
-
-    <ProtectedRoute exact path='/recipes'>
-        <AddRecipe />
-  </ProtectedRoute>
+   
+    <Switch>
   
-  {/* <ProtectedRoute exact path='/recipes'>
-        <CreateRecipe />
-  </ProtectedRoute> */}
+  <ProtectedRoute exact path='/home'>
+      <HomeNav />
+        <Home />
+  </ProtectedRoute>
+
+  <ProtectedRoute exact path='/newRecipe'>
+    <HomeNav />
+    <AddRecipe />
+  </ProtectedRoute>
+
+  <ProtectedRoute exact path='/recipes/:id'>
+    <HomeNav />
+    <UpdateRecipes />
+  </ProtectedRoute>
      
     </Switch>
     </div>
     </Router>
      );
 }
-
 
 export default App;

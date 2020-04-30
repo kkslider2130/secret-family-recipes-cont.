@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosWithAuth from '../utils/axiosWithAuth';
 import React, {useState, useEffect} from "react";
 import * as yup from "yup";
 import styled from 'styled-components';
@@ -74,11 +74,11 @@ p{
 
 
 const formSchema = yup.object().shape({
-    title: yup.string().required().min(2, "Recipe name should have at least 2 characters!"),
+    recipe_name: yup.string().required().min(2, "Recipe name should have at least 2 characters!"),
     description: yup.string().required().min(6, "Description must have at least 6 caharacters!"),
-    prepTime: yup.string().required().min(2, "Prep Time must have at least 2 characters!"),    
-    cookTime: yup.string().required().min(2, "Cook Time must have at least 2 characters!"),
-    servingAmount: yup.string().required().min(2, "Serving Amount must have at least 2 characters!"),
+    prep_time: yup.string().required().min(2, "Prep Time must have at least 2 characters!"),    
+    cook_time: yup.string().required().min(2, "Cook Time must have at least 2 characters!"),
+    serving_size: yup.string().required().min(2, "Serving Amount must have at least 2 characters!"),
   });
 
 
@@ -86,20 +86,33 @@ const formSchema = yup.object().shape({
 
   export default function AddRecipe() {
 
+    const test = {
+      "recipe_name": "Kale Chips", 
+      "description":"aw kaaale no", 
+      "prep_time": "10 minutes", 
+      "cook_time": "40 minutes",
+      "serving_size": "serves 2",
+      "image_url": "https://images-gmi-pmc.edge-generalmills.com/1e7f0070-f782-42f0-a6e6-f6da2eb218c6.jpg"
+      
+      }
+    
+
+
     const [formState, setFormState] = useState({
-      title: "",
+      user_id: parseInt(localStorage.getItem('user_id')),
+      recipe_name: "",
       description: "",
-      prepTime: "",
-      cookTime: "",
-      servingAmount: "",
+      prep_time: "",
+      cook_time: "",
+      serving_size: "",
     });
 
     const [errors, setErrors] = useState({
-        title: "",
+        recipe_name: "",
         description: "",
-        prepTime: "",
-        cookTime: "",
-        servingAmount: "",
+        prep_time: "",
+        cook_time: "",
+        serving_size: "",
     })
 
     const [submitDisabled, setSubmitDisabled] = useState(true);
@@ -132,17 +145,20 @@ const formSchema = yup.object().shape({
       //axios post request
       const formSubmit = e => {
         e.preventDefault();
-        axios
-          .post("https://reqres.in/api/users", formState) 
+        console.log('formState', formState)
+        axiosWithAuth()
+          .post("/recipes/add_recipe", formState) 
           .then(res => {
+            console.log(res)
             setPost([...post, res.data]);
 
+
             setFormState({
-              title: "",
+              recipe_name: "",
               description: "",
-              prepTime: "",
-              cookTime: "",
-              servingAmount: "",
+              prep_time: "",
+              cook_time: "",
+              serving_size: "",
             });
           })
           .catch(err => {
@@ -169,48 +185,48 @@ const formSchema = yup.object().shape({
 
                     <input
                     className="form__input"
-                    id="title"
+                    id="recipe_name"
                     type="text"
-                    name="title"
+                    name="recipe_name"
                     placeholder="recipe name" 
-                    value={formState.title}
+                    value={formState.recipe_name}
                     onChange={inputChange}
                     />
-                    {errors.title.length > 0 ? (<p className="error">{errors.title}</p> ): null}
+                    {errors.recipe_name.length > 0 ? (<p className="error">{errors.recipe_name}</p> ): null}
 
 
                     <input
                     className="form__input"
-                    id="prepTime"
+                    id="prep_time"
                     type="text"
-                    name="prepTime"
+                    name="prep_time"
                     placeholder="prep time" 
-                    value={formState.prepTime}
+                    value={formState.prep_time}
                     onChange={inputChange}
                     />
-                    {errors.prepTime.length > 0 ? (<p className="error">{errors.prepTime}</p> ): null}
+                    {errors.prep_time.length > 0 ? (<p className="error">{errors.prep_time}</p> ): null}
 
                     <input
                     className="form__input"
-                    id="cookTime"
+                    id="cook_time"
                     type="text"
-                    name="cookTime"
+                    name="cook_time"
                     placeholder="cook time" 
-                    value={formState.cookTime}
+                    value={formState.cook_time}
                     onChange={inputChange}
                     />
-                    {errors.cookTime.length > 0 ? (<p className="error">{errors.cookTime}</p> ): null}
+                    {errors.cook_time.length > 0 ? (<p className="error">{errors.cook_time}</p> ): null}
 
                     <input
                     className="form__input"
-                    id="servingAmount"
+                    id="serving_size"
                     type="text"
-                    name="servingAmount"
+                    name="serving_size"
                     placeholder="serving amount" 
-                    value={formState.servingAmount}
+                    value={formState.serving_size}
                     onChange={inputChange}
                     />
-                    {errors.servingAmount.length > 0 ? (<p className="error">{errors.servingAmount}</p> ): null}
+                    {errors.serving_size.length > 0 ? (<p className="error">{errors.serving_size}</p> ): null}
 
                     <textarea
                     className="form__input"
@@ -224,8 +240,8 @@ const formSchema = yup.object().shape({
                     {errors.description.length > 0 ? (<p className="error"> {errors.description}</p>) : null}
 
 
-                <pre>{JSON.stringify(post, null, 2)}</pre>
-                <button className="btn" disabled={submitDisabled}>Add Recipe</button>
+                {/* <pre>{JSON.stringify(post, null, 2)}</pre> */}
+                <button className="btn" >Add Recipe</button>
             </form>
         </MainContainer>
       )
