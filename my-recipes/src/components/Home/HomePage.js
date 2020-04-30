@@ -11,7 +11,22 @@ const GetRecipes = () => {
             setRecipes(res.data.recipe);
         })
         .catch(err => console.log({err}))
-    }, [])
+    }, []);
+ 
+const deleteRecipe = (e, recipe) => {
+    e.preventDefault();
+    axiosWithAuth()
+ 
+    console.log(e)
+    .delete(`/recipes/${recipe.id}`)
+    .then(res => {
+        setRecipes(res.data.recipe);
+    })
+    .catch(err => console.log('delete err', err))
+};
+
+
+
 
 return(
  <div>
@@ -22,9 +37,18 @@ return(
             <div className='recipeText'> Prep Time:{recipe.prep_time}</div>
             <div className='recipeText'> Cook Time: {recipe.cook_time}</div>
             <div className='recipeText'> Serving Size: {recipe.serving_size}</div>
-            </div>
+            
+                {/* <div className='edit-button' onClick={editRecipe}>
+                     Edit
+                </div> */}
+
+                <div className='delete-button' onClick={deleteRecipe}>
+                    Delete
+                </div>
+        </div>
      ))}
      
+      
  </div>
 )
 };

@@ -37,7 +37,9 @@ function HomeNav() {
 
 <HomeNavBarContainer>
   <nav className="navigation">          
-  <img src = {companylogo} className = "company-logo" alt="company-logo"/>          
+  <Link to='/home'>
+  <img src = {companylogo} className = "company-logo" alt="company-logo"/>   
+  </Link>       
       <Link to='/newRecipe'>+ New Recipe</Link>
       <Link to='/myRecipes' >+ My Recipes</Link>  
       <Link to='/favorites' >+ Favorites</Link>        

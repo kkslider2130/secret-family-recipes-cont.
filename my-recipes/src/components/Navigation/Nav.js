@@ -1,11 +1,9 @@
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../../App.css';
-import RegisterForm from "../Register/RegisterForm"
-import LoginForm from "../Login/LoginForm"
 import styled from 'styled-components';
 import companylogo from '../../company-logo.png';
-import App from '../../App'
+
 
 const NavBarContainer = styled.div`
 background-color: whitesmoke;

@@ -1,7 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ProtectedRoute from './utils/ProtectedRoute';
-import CreateRecipe from './components/Recipes/CreateRecipe';
 import './App.css';
 import Nav from './components/Navigation/Nav';
 import AddRecipe from './components/RecipeForm';
@@ -27,14 +26,15 @@ function App() {
     </Route>
    
     <Switch>
-    
-    <ProtectedRoute exact path='/recipes'>
-        <AddRecipe />
-  </ProtectedRoute>
   
   <ProtectedRoute exact path='/home'>
       <HomeNav />
         <Home />
+  </ProtectedRoute>
+
+  <ProtectedRoute exact path='/newRecipe'>
+    <HomeNav />
+    <AddRecipe />
   </ProtectedRoute>
      
     </Switch>
