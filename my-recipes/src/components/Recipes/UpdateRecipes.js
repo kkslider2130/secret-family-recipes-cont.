@@ -2,22 +2,25 @@ import React, { useState, useEffect } from 'react';
 import axiosWithAuth from '../../utils/axiosWithAuth';
 import { useParams, useHistory } from 'react-router-dom';
 
+
+
+const UpdateRecipes = () => {
+
+const { push } = useHistory();
+const { id } = useParams();
+
+
 const initialRecipe = {
-    id: '',
-    user_id: '',
+    id: id,
+    user_id: parseInt(localStorage.getItem('user_id')),
     recipe_name: '',
     prep_time: '',
     cook_time: '',
     serving_size: '',
     description: ''
 }
-
-
-const UpdateRecipes = () => {
-const { push } = useHistory();
-const { id } = useParams();
-const [updateRecipes, setUpdateRecipes] = useState(initialRecipe);
  
+const [updateRecipes, setUpdateRecipes] = useState(initialRecipe);
 
 const handleChange = e => {
  setUpdateRecipes({
@@ -31,11 +34,13 @@ const handleSubmit = (e, id) => {
     .put(`/recipes/${id}`, updateRecipes)
     .then(res => {
         console.log('put res', res)
-     setUpdateRecipes(res.data.recipe)
+     setUpdateRecipes()
      push('/home')
     })
     .catch(err => console.log({err}))
 }
+
+
 
 return(
     <div>
