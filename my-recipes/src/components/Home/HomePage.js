@@ -7,42 +7,39 @@ const GetRecipes = () => {
         axiosWithAuth()
         .get('/recipes')
         .then(res => {
-            console.log(res)
             setRecipes(res.data.recipe);
         })
         .catch(err => console.log({err}))
     }, []);
  
-const deleteRecipe = (e, recipe) => {
+const deleteRecipe = (e, id) => {
     e.preventDefault();
     axiosWithAuth()
- 
-    console.log(e)
-    .delete(`/recipes/${recipe.id}`)
+    .delete(`/recipes/${id}`)
     .then(res => {
-        setRecipes(res.data.recipe);
+        console.log('delete res', res)
+        setRecipes(recipes.filter(r => r.id !== id));
     })
     .catch(err => console.log('delete err', err))
 };
 
-
-
-
 return(
  <div>
      {recipes.map(recipe => (
+        
          <div className='getRecipes' key={recipe.user_id}>
             <div className='recipeName'> {recipe.recipe_name}</div>
             <div className='recipeText'> Description:{recipe.description}</div>
             <div className='recipeText'> Prep Time:{recipe.prep_time}</div>
             <div className='recipeText'> Cook Time: {recipe.cook_time}</div>
             <div className='recipeText'> Serving Size: {recipe.serving_size}</div>
-            
+           
                 {/* <div className='edit-button' onClick={editRecipe}>
                      Edit
                 </div> */}
 
-                <div className='delete-button' onClick={deleteRecipe}>
+                <div className='delete-button' onClick={e => deleteRecipe(e, recipe.id)
+            }>
                     Delete
                 </div>
         </div>
