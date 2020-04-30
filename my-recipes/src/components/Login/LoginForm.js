@@ -135,7 +135,7 @@ const formSchema = yup.object().shape({
               username: "",
               password: "",
             });
-          history.push('/recipes')
+          history.push('/home')
           })
           .catch(err => {
             console.log(err.res);

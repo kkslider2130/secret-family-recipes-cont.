@@ -7,6 +7,7 @@ import Nav from './components/Navigation/Nav';
 import AddRecipe from './components/RecipeForm';
 import LoginForm from './components/Login/LoginForm';
 import RegisterForm from './components/Register/RegisterForm';
+import Home from './components/Home/HomePage';
 
 function App() {
   return (
@@ -29,9 +30,9 @@ function App() {
         <AddRecipe />
   </ProtectedRoute>
   
-  {/* <ProtectedRoute exact path='/recipes'>
-        <CreateRecipe />
-  </ProtectedRoute> */}
+  <ProtectedRoute exact path='/home'>
+        <Home />
+  </ProtectedRoute>
      
     </Switch>
     </div>
