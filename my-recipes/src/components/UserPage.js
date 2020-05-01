@@ -94,34 +94,38 @@ const UserPage = () => {
   return (
     <div>
       {recipes.map((recipe) => (
-        <>
+        <div className="recipes-container">
           <div className="getRecipes" key={recipe.user_id}>
-            <div className="recipeName"> {recipe.recipe_name}</div>
-            <div className="recipeText"> Description:{recipe.description}</div>
-            <div className="recipeText"> Prep Time:{recipe.prep_time}</div>
-            <div className="recipeText"> Cook Time: {recipe.cook_time}</div>
-            <div className="recipeText">
-              {" "}
-              Serving Size: {recipe.serving_size}
-            </div>
+            <img
+              className="recipe-img"
+              src={recipe.image_url}
+              alt="recipe-photo"
+            />
+            <h2 className="recipeName"> {recipe.recipe_name}</h2>
+            <p className="recipeText"> Description: {recipe.description}</p>
+            <p className="recipeText"> Prep Time: {recipe.prep_time}</p>
+            <p className="recipeText"> Cook Time: {recipe.cook_time}</p>
+            <p className="recipeText"> Serving Size: {recipe.serving_size}</p>
 
-            <Link to={`/user_recipe/${recipe.id}`}>show recipe</Link>
+            <div className="buttons-row">
+              <Link to={`/user_recipe/${recipe.id}`}>Recipe</Link>
 
-            <div
-              className="edit-button"
-              onClick={(e) => {
-                e.preventDefault();
-                openModal(recipe.recipe_name);
-              }}
-            >
-              Edit
-            </div>
+              <div
+                className="edit-button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  openModal(recipe.recipe_name);
+                }}
+              >
+                Edit
+              </div>
 
-            <div
-              className="delete-button"
-              onClick={(e) => deleteRecipe(e, recipe.id)}
-            >
-              Delete
+              <div
+                className="delete-button"
+                onClick={(e) => deleteRecipe(e, recipe.id)}
+              >
+                Delete
+              </div>
             </div>
           </div>
           <Modal
@@ -133,7 +137,7 @@ const UserPage = () => {
           >
             <div className="modal-header">
               <h2 ref={(_subtitle) => (subtitle = _subtitle)}>
-                Edit recipe {recipe.id}
+                Edit {recipe.recipe_name}
               </h2>
               <button onClick={closeModal}>
                 <i class="fas fa-times"></i>
@@ -200,7 +204,7 @@ const UserPage = () => {
               </form>
             </div>
           </Modal>
-        </>
+        </div>
       ))}
     </div>
   );

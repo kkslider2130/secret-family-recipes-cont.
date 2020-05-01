@@ -1,3 +1,78 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,600,700,800|Raleway:400,500,600,700,800,900&display=swap");
+
+.home-container {
+  .home-title {
+    font-family: "Raleway";
+    text-align: center;
+    font-size: 2.5rem;
+    margin-top: 3rem;
+  }
+}
+.recipes-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .getRecipes {
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .recipe-img {
+      width: 30rem;
+    }
+    h2 {
+      font-family: "Montserrat";
+      font-weight: 600;
+      font-size: 1.7rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0.3rem;
+    }
+    p {
+      margin: 0 0 0.1rem;
+    }
+    .buttons-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-top: 1rem;
+      width: 70%;
+      a {
+        text-decoration: none;
+        color: white;
+        background: #3a7669;
+        padding: 0.3rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        &:hover {
+          background: #6dc0ae;
+        }
+      }
+
+      .edit-button {
+        color: white;
+        background: #3a7669;
+        padding: 0.3rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        &:hover {
+          background: #6dc0ae;
+        }
+      }
+      .delete-button {
+        color: white;
+        background: #96184c;
+        padding: 0.3rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        &:hover {
+          background: #db4b87;
+        }
+      }
+    }
+  }
+}
+
+//modal
 .ReactModalPortal {
   h2 {
     margin: 0 0 2rem 0;
@@ -48,6 +123,10 @@
           margin-left: 5rem;
           width: 80%;
           height: 2.5vh;
+        }
+        #description {
+          width: 80%;
+          margin-bottom: 1rem;
         }
       }
     }

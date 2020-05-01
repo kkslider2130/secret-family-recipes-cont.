@@ -32,17 +32,22 @@ const GetRecipes = () => {
   }, []);
 
   return (
-    <div>
+    <div className="home-container">
+      <h1 className="home-title">Latest Recipes</h1>
       {recipes.map((recipe) => (
         <>
-          <div className="getRecipes" key={recipe.user_id}>
-            <div className="recipeName"> {recipe.recipe_name}</div>
-            <div className="recipeText"> Description:{recipe.description}</div>
-            <div className="recipeText"> Prep Time:{recipe.prep_time}</div>
-            <div className="recipeText"> Cook Time: {recipe.cook_time}</div>
-            <div className="recipeText">
-              {" "}
-              Serving Size: {recipe.serving_size}
+          <div className="recipes-container">
+            <div className="getRecipes" key={recipe.user_id}>
+              <img
+                className="recipe-img"
+                src={recipe.image_url}
+                alt="recipe-photo"
+              />
+              <h2 className="recipeName"> {recipe.recipe_name}</h2>
+              <p className="recipeText"> Description: {recipe.description}</p>
+              <p className="recipeText"> Prep Time: {recipe.prep_time}</p>
+              <p className="recipeText"> Cook Time: {recipe.cook_time}</p>
+              <p className="recipeText"> Serving Size: {recipe.serving_size}</p>
             </div>
           </div>
         </>
