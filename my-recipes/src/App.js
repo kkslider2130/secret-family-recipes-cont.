@@ -10,6 +10,7 @@ import Home from "./components/Home/HomePage";
 import HomeNav from "./components/Home/HomeNav";
 import UpdateRecipes from "./components/Recipes/UpdateRecipes";
 import UserPage from "./components/UserPage";
+import RecipePage from "./components/Recipes/RecipePage";
 
 function App() {
   return (
@@ -41,9 +42,9 @@ function App() {
             <AddRecipe />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path="/recipes/:id">
+          <ProtectedRoute exact path="/user_recipes/:id">
             <HomeNav />
-            <UpdateRecipes />
+            <RecipePage />
           </ProtectedRoute>
         </Switch>
       </div>

@@ -93,14 +93,18 @@ const UserPage = () => {
 
   return (
     <div>
+      <h1 className="home-title">My Collection</h1>
+
       {recipes.map((recipe) => (
         <div className="recipes-container">
           <div className="getRecipes" key={recipe.user_id}>
-            <img
-              className="recipe-img"
-              src={recipe.image_url}
-              alt="recipe-photo"
-            />
+            <Link to={`/user_recipes/${recipe.id}`}>
+              <img
+                className="recipe-img"
+                src={recipe.image_url}
+                alt="recipe-photo"
+              />
+            </Link>
             <h2 className="recipeName"> {recipe.recipe_name}</h2>
             <p className="recipeText"> Description: {recipe.description}</p>
             <p className="recipeText"> Prep Time: {recipe.prep_time}</p>
@@ -108,8 +112,6 @@ const UserPage = () => {
             <p className="recipeText"> Serving Size: {recipe.serving_size}</p>
 
             <div className="buttons-row">
-              <Link to={`/user_recipe/${recipe.id}`}>Recipe</Link>
-
               <div
                 className="edit-button"
                 onClick={(e) => {

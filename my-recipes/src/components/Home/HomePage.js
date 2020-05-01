@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axiosWithAuth from "../../utils/axiosWithAuth";
 import { useHistory } from "react-router-dom";
-import Modal from "react-modal";
+import { Link } from "react-router-dom";
 
 const customStyles = {
   content: {
@@ -38,11 +38,13 @@ const GetRecipes = () => {
         <>
           <div className="recipes-container">
             <div className="getRecipes" key={recipe.user_id}>
-              <img
-                className="recipe-img"
-                src={recipe.image_url}
-                alt="recipe-photo"
-              />
+              <Link to={`/user_recipes/${recipe.id}`}>
+                <img
+                  className="recipe-img"
+                  src={recipe.image_url}
+                  alt="recipe-photo"
+                />
+              </Link>
               <h2 className="recipeName"> {recipe.recipe_name}</h2>
               <p className="recipeText"> Description: {recipe.description}</p>
               <p className="recipeText"> Prep Time: {recipe.prep_time}</p>
