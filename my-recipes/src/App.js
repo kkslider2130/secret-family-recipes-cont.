@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import "./App.scss";
@@ -11,8 +11,10 @@ import HomeNav from "./components/Home/HomeNav";
 import UpdateRecipes from "./components/Recipes/UpdateRecipes";
 import UserPage from "./components/UserPage";
 import RecipePage from "./components/Recipes/RecipePage";
+import { ToastProvider } from "react-toast-notifications";
 
 function App() {
+  const [toast, setToast] = useState(false);
   return (
     <Router>
       <div className="App">
@@ -34,12 +36,16 @@ function App() {
 
           <ProtectedRoute exact path="/user_recipes">
             <HomeNav />
-            <UserPage />
+            <ToastProvider>
+              <UserPage toast={toast} setToast={setToast} />
+            </ToastProvider>
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/newRecipe">
             <HomeNav />
-            <AddRecipe />
+            <ToastProvider>
+              <AddRecipe setToast={setToast} />
+            </ToastProvider>
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/user_recipes/:id">

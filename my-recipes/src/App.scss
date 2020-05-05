@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,600,700,800|Raleway:400,500,600,700,800,900&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Radley&display=swap");
 
 .home-title {
   font-family: "Raleway";
@@ -19,6 +20,7 @@
     align-items: center;
     .recipe-img {
       width: 30rem;
+      box-shadow: 13px 10px 33px -20px rgba(0, 0, 0, 0.75);
     }
     h2 {
       font-family: "Montserrat";
@@ -29,6 +31,7 @@
     }
     p {
       margin: 0 0 0.1rem;
+      font-family: "Radley";
     }
     .buttons-row {
       display: flex;
@@ -167,18 +170,30 @@
   .recipe-card {
     margin-bottom: 2rem;
     width: 65%;
+    font-family: "Radley";
+    h3 {
+      font-size: 1.6rem;
+    }
+    p {
+      font-size: 1.4rem;
+    }
   }
   .ingrediant-card {
     display: flex;
     flex-direction: column;
-    width: 65%;
+    width: 35%;
+    background-color: rgb(221, 221, 221);
+    padding: 3rem;
     .ing-container {
-      width: 40%;
+      p {
+        font-family: "Radley";
+        font-size: 1.1rem;
+      }
       display: flex;
       flex-direction: row-reverse;
       justify-content: space-between;
       p.ing-quan {
-        font-weight: 500;
+        font-weight: bold;
       }
     }
   }
@@ -187,12 +202,15 @@
     flex-direction: column;
     width: 65%;
     .steps-container {
+      p {
+        font-family: "Radley";
+      }
       width: 80%;
       display: flex;
       flex-direction: row-reverse;
       justify-content: space-between;
-      .steps-num {
-        font-weight: 500;
+      p.step-num {
+        font-weight: bold;
       }
     }
     margin-top: 3rem;

@@ -3,6 +3,8 @@ import axiosWithAuth from "../utils/axiosWithAuth";
 import { useHistory } from "react-router-dom";
 import Modal from "react-modal";
 import { Link } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
+import SyncLoader from "react-spinners/SyncLoader";
 
 const customStyles = {
   content: {
@@ -19,8 +21,9 @@ const customStyles = {
   },
 };
 
-const UserPage = () => {
-  const { push } = useHistory();
+const UserPage = (props) => {
+  const { addToast } = useToasts();
+
   const [recipes, setRecipes] = useState([]);
   const currentUserId = parseInt(localStorage.getItem("user_id"));
   const initialRecipe = {
@@ -45,6 +48,23 @@ const UserPage = () => {
       .catch((err) => console.log({ err }));
   }, []);
 
+  useEffect(() => {
+    if (props.toast === true) {
+      addToast("New Recipe Added", {
+        appearance: "success",
+        autoDismiss: true,
+      });
+      props.setToast(false);
+      axiosWithAuth()
+        .get(`/recipes/${currentUserId}/user_recipes`)
+        .then((res) => {
+          console.log(res.data);
+          setRecipes(res.data);
+        })
+        .catch((err) => console.log({ err }));
+    }
+  }, [props.toast]);
+
   const openModal = (item) => {
     setIsOpen({ ...modalIsOpen, [item]: true });
   };
@@ -62,6 +82,10 @@ const UserPage = () => {
       .then((res) => {
         console.log("delete res", res);
         setRecipes(recipes.filter((r) => r.id !== id));
+        addToast("Recipe deleted", {
+          appearance: "error",
+          autoDismiss: true,
+        });
       })
       .catch((err) => console.log("delete err", err));
   };
@@ -93,121 +117,131 @@ const UserPage = () => {
 
   return (
     <div>
-      <h1 className="home-title">My Collection</h1>
+      <div data-aos="fade-in" data-aos-offset="200" data-aos-duration="1500">
+        <h1 className="home-title">My Collection</h1>
 
-      {recipes.map((recipe) => (
-        <div className="recipes-container">
-          <div className="getRecipes" key={recipe.user_id}>
-            <Link to={`/user_recipes/${recipe.id}`}>
-              <img
-                className="recipe-img"
-                src={recipe.image_url}
-                alt="recipe-photo"
-              />
-            </Link>
-            <h2 className="recipeName"> {recipe.recipe_name}</h2>
-            <p className="recipeText"> Description: {recipe.description}</p>
-            <p className="recipeText"> Prep Time: {recipe.prep_time}</p>
-            <p className="recipeText"> Cook Time: {recipe.cook_time}</p>
-            <p className="recipeText"> Serving Size: {recipe.serving_size}</p>
+        {recipes.map((recipe) => (
+          <div className="recipes-container">
+            <div className="getRecipes" key={recipe.user_id}>
+              <Link to={`/user_recipes/${recipe.id}`}>
+                {recipe.image_url ? (
+                  <img
+                    className="recipe-img"
+                    src={recipe.image_url}
+                    alt="recipe snapshot"
+                  />
+                ) : (
+                  <img
+                    className="recipe-img"
+                    src="https://sciences.ucf.edu/psychology/wp-content/uploads/sites/63/2019/09/No-Image-Available.png"
+                    alt="no image available"
+                  />
+                )}
+              </Link>
+              <h2 className="recipeName"> {recipe.recipe_name}</h2>
+              <p className="recipeText"> Description: {recipe.description}</p>
+              <p className="recipeText"> Prep Time: {recipe.prep_time}</p>
+              <p className="recipeText"> Cook Time: {recipe.cook_time}</p>
+              <p className="recipeText"> Serving Size: {recipe.serving_size}</p>
 
-            <div className="buttons-row">
-              <div
-                className="edit-button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  openModal(recipe.recipe_name);
-                }}
-              >
-                Edit
-              </div>
-
-              <div
-                className="delete-button"
-                onClick={(e) => deleteRecipe(e, recipe.id)}
-              >
-                Delete
-              </div>
-            </div>
-          </div>
-          <Modal
-            isOpen={modalIsOpen[recipe.recipe_name]}
-            onAfterOpen={afterOpenModal}
-            onRequestClose={closeModal}
-            style={customStyles}
-            contentLabel="Modal"
-          >
-            <div className="modal-header">
-              <h2 ref={(_subtitle) => (subtitle = _subtitle)}>
-                Edit {recipe.recipe_name}
-              </h2>
-              <button onClick={closeModal}>
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-            <div className="contact-inputs">
-              <form onSubmit={handleSubmit}>
-                <input
-                  className="form__input"
-                  id="recipe_name"
-                  type="text"
-                  name="recipe_name"
-                  placeholder="Recipe Name"
-                  value={updateRecipes.recipe_name}
-                  onChange={handleChange}
-                />
-                <input
-                  className="form__input"
-                  id="prep_time"
-                  type="text"
-                  name="prep_time"
-                  placeholder="Prep Time"
-                  value={updateRecipes.prep_time}
-                  onChange={handleChange}
-                />
-                <input
-                  className="form__input"
-                  id="cook_time"
-                  type="text"
-                  name="cook_time"
-                  placeholder="Cook Time"
-                  value={updateRecipes.cook_time}
-                  onChange={handleChange}
-                />
-                <input
-                  className="form__input"
-                  id="serving_size"
-                  type="text"
-                  name="serving_size"
-                  placeholder="Serving Size"
-                  value={updateRecipes.serving_size}
-                  onChange={handleChange}
-                />
-                <textarea
-                  className="form__input"
-                  id="description"
-                  type="text"
-                  name="description"
-                  placeholder="description"
-                  value={updateRecipes.description}
-                  onChange={handleChange}
-                />
-                <button
-                  className="btn"
+              <div className="buttons-row">
+                <div
+                  className="edit-button"
                   onClick={(e) => {
-                    handleSubmit(e, recipe.id);
-                    console.log(recipe);
-
-                    closeModal();
+                    e.preventDefault();
+                    openModal(recipe.recipe_name);
                   }}
                 >
-                  Update Recipe
-                </button>
-              </form>
+                  Edit
+                </div>
+
+                <div
+                  className="delete-button"
+                  onClick={(e) => deleteRecipe(e, recipe.id)}
+                >
+                  Delete
+                </div>
+              </div>
             </div>
-          </Modal>
-        </div>
-      ))}
+            <Modal
+              isOpen={modalIsOpen[recipe.recipe_name]}
+              onAfterOpen={afterOpenModal}
+              onRequestClose={closeModal}
+              style={customStyles}
+              contentLabel="Modal"
+            >
+              <div className="modal-header">
+                <h2 ref={(_subtitle) => (subtitle = _subtitle)}>
+                  Edit {recipe.recipe_name}
+                </h2>
+                <button onClick={closeModal}>
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <div className="contact-inputs">
+                <form onSubmit={handleSubmit}>
+                  <input
+                    className="form__input"
+                    id="recipe_name"
+                    type="text"
+                    name="recipe_name"
+                    placeholder="Recipe Name"
+                    value={updateRecipes.recipe_name}
+                    onChange={handleChange}
+                  />
+                  <input
+                    className="form__input"
+                    id="prep_time"
+                    type="text"
+                    name="prep_time"
+                    placeholder="Prep Time"
+                    value={updateRecipes.prep_time}
+                    onChange={handleChange}
+                  />
+                  <input
+                    className="form__input"
+                    id="cook_time"
+                    type="text"
+                    name="cook_time"
+                    placeholder="Cook Time"
+                    value={updateRecipes.cook_time}
+                    onChange={handleChange}
+                  />
+                  <input
+                    className="form__input"
+                    id="serving_size"
+                    type="text"
+                    name="serving_size"
+                    placeholder="Serving Size"
+                    value={updateRecipes.serving_size}
+                    onChange={handleChange}
+                  />
+                  <textarea
+                    className="form__input"
+                    id="description"
+                    type="text"
+                    name="description"
+                    placeholder="description"
+                    value={updateRecipes.description}
+                    onChange={handleChange}
+                  />
+                  <button
+                    className="btn"
+                    onClick={(e) => {
+                      handleSubmit(e, recipe.id);
+                      console.log(recipe);
+
+                      closeModal();
+                    }}
+                  >
+                    Update Recipe
+                  </button>
+                </form>
+              </div>
+            </Modal>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

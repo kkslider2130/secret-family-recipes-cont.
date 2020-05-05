@@ -41,8 +41,8 @@ function HomeNav() {
             />
           </Link>
           <Link to="/newRecipe">+ New Recipe</Link>
-          <Link to="/user_recipes">+ My Recipes</Link>
-          <Link to="/favorites">+ Favorites</Link>
+          <Link to="/user_recipes">My Recipes</Link>
+          <Link to="/favorites">Favorites</Link>
         </nav>
       </HomeNavBarContainer>
     </div>
