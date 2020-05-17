@@ -1,9 +1,12 @@
 import axiosWithAuth from "../../utils/axiosWithAuth";
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import { useHistory } from "react-router";
 import * as yup from "yup";
 import styled from "styled-components";
 import companylogogreen from "../../company-logo-green.png";
+import { useToasts } from "react-toast-notifications";
 
 const MainContainer = styled.div`
   width: 80%;
@@ -19,6 +22,14 @@ const MainContainer = styled.div`
     margin: 10vh auto;
     box-shadow: 5px 8px 32px 10px rgba(150, 148, 150, 1);
     border-radius: 2px;
+    .reg-link {
+      margin-top: 2rem;
+      a {
+        color: #3a7669;
+        font-weight: bold;
+        text-decoration: none;
+      }
+    }
   }
   .logo-div {
     display: flex;
@@ -73,6 +84,7 @@ const formSchema = yup.object().shape({
 
 export default function LoginForm(props) {
   const history = useHistory();
+  const { addToast } = useToasts();
 
   const [formState, setFormState] = useState({
     username: "",
@@ -92,6 +104,15 @@ export default function LoginForm(props) {
       setSubmitDisabled(!valid);
     });
   }, [formState]);
+  useEffect(() => {
+    if (props.toast === true) {
+      addToast("Successfully Registered!", {
+        appearance: "success",
+        autoDismiss: true,
+      });
+      props.setToast(false);
+    }
+  }, [props.toast]);
 
   const validateChange = (e) => {
     yup
@@ -130,6 +151,10 @@ export default function LoginForm(props) {
       })
       .catch((err) => {
         console.log(err.res);
+        addToast("invalid login", {
+          appearance: "error",
+          autoDismiss: true,
+        });
       });
   };
 
@@ -156,6 +181,8 @@ export default function LoginForm(props) {
             alt="company-logo"
           />
         </div>
+        <h2>Welcome</h2>
+
         <input
           className="form__input"
           id="username"
@@ -185,6 +212,9 @@ export default function LoginForm(props) {
         <button className="btn" disabled={submitDisabled} push="/recipes">
           Login
         </button>
+        <div className="reg-link">
+          Don't have an account? <Link to="register">Sign Up</Link>
+        </div>
       </form>
     </MainContainer>
   );

@@ -1,8 +1,12 @@
 import axiosWithAuth from "../../utils/axiosWithAuth";
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router";
+import { useToasts } from "react-toast-notifications";
+
 import * as yup from "yup";
 import styled from "styled-components";
 import companylogogreen from "../../../src/company-logo-green.png";
+import { Link } from "react-router-dom";
 
 const MainContainer = styled.div`
   width: 80%;
@@ -18,6 +22,14 @@ const MainContainer = styled.div`
     margin: 10vh auto;
     box-shadow: 0 0 1em #222;
     border-radius: 2px;
+    .reg-link {
+      margin-top: 2rem;
+      a {
+        color: #3a7669;
+        font-weight: bold;
+        text-decoration: none;
+      }
+    }
   }
   .logo-div {
     display: flex;
@@ -76,7 +88,9 @@ const formSchema = yup.object().shape({
     .min(3, "Password must have at least 3 characters"),
 });
 
-export default function RegisterUser() {
+export default function RegisterUser(props) {
+  const { addToast } = useToasts();
+
   const [formState, setFormState] = useState({
     username: "",
     password: "",
@@ -86,6 +100,7 @@ export default function RegisterUser() {
     username: "",
     password: "",
   });
+  const history = useHistory();
 
   const [submitDisabled, setSubmitDisabled] = useState(true);
 
@@ -125,9 +140,15 @@ export default function RegisterUser() {
           username: "",
           password: "",
         });
+        props.setToast(true);
+        history.push("/");
       })
       .catch((err) => {
         console.log(err.res);
+        addToast("unexpected error, please try again", {
+          appearance: "error",
+          autoDismiss: true,
+        });
       });
   };
 
@@ -154,6 +175,8 @@ export default function RegisterUser() {
             alt="company-logo"
           />
         </div>
+        <h2>Join</h2>
+
         <input
           className="form__input"
           id="username"
@@ -183,6 +206,9 @@ export default function RegisterUser() {
         <button className="btn" disabled={submitDisabled}>
           Sign Up
         </button>
+        <div className="reg-link">
+          Have have an account? <Link to="/">Sign In</Link>
+        </div>
       </form>
     </MainContainer>
   );

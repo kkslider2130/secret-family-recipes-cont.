@@ -141,7 +141,28 @@ const MainContainer = styled.div`
     font-size: 0.8rem;
     color: black;
   }
+  .step-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 58%;
+    background: rgb(221, 221, 221);
+    padding: 0.5rem 2rem;
+    input {
+      width: 48%;
+    }
+  }
 
+  .step-name {
+    color: black;
+    font-weight: bold;
+    font-size: 0.8rem;
+  }
+  .step-quan {
+    font-size: 0.8rem;
+    color: black;
+    margin-left: 1rem;
+  }
   .ing-btn {
     background: #3a7669;
     color: white;
@@ -562,9 +583,9 @@ export default function AddRecipe(props) {
 
             {recipeSteps.map((i) => {
               return (
-                <div className="ing-container">
-                  <p className="ing-name">{i.step_number}</p>
-                  <p className="ing-quan">{i.instructions}</p>
+                <div className="step-container">
+                  <p className="step-name">{i.step_number}</p>
+                  <p className="step-quan">{i.instructions}</p>
                 </div>
               );
             })}

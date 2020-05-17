@@ -51,9 +51,9 @@ export default function RecipePage() {
         <h1>{recipe.recipe_name}</h1>
         <img src={recipe.image_url} alt="recipe-photo" />
         <h3>{recipe.description}</h3>
-        <p>{recipe.prep_time}</p>
-        <p>{recipe.cook_time}</p>
-        <p>{recipe.serving_size}</p>
+        <p>prep time: {recipe.prep_time}</p>
+        <p>cook time: {recipe.cook_time}</p>
+        <p>yield: {recipe.serving_size}</p>
       </div>
       <div className="ingrediant-card">
         <h3>Ingrediants</h3>

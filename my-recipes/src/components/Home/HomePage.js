@@ -35,29 +35,32 @@ const GetRecipes = () => {
     <div className="home-container">
       <div data-aos="fade-in" data-aos-offset="200" data-aos-duration="1500">
         <h1 className="home-title">Latest Recipes</h1>
-        {recipes.map((recipe) => (
-          <>
-            <div className="recipes-container">
-              <div className="getRecipes" key={recipe.user_id}>
-                <Link to={`/user_recipes/${recipe.id}`}>
-                  <img
-                    className="recipe-img"
-                    src={recipe.image_url}
-                    alt="recipe-photo"
-                  />
-                </Link>
-                <h2 className="recipeName"> {recipe.recipe_name}</h2>
-                <p className="recipeText"> Description: {recipe.description}</p>
-                <p className="recipeText"> Prep Time: {recipe.prep_time}</p>
-                <p className="recipeText"> Cook Time: {recipe.cook_time}</p>
-                <p className="recipeText">
-                  {" "}
-                  Serving Size: {recipe.serving_size}
-                </p>
+        <div className="recipes-list">
+          {recipes.map((recipe) => (
+            <>
+              <div className="recipes-container">
+                <div className="getRecipes" key={recipe.user_id}>
+                  <Link to={`/user_recipes/${recipe.id}`}>
+                    <img
+                      className="recipe-img"
+                      src={recipe.image_url}
+                      alt="recipe-photo"
+                    />
+                  </Link>
+                  <h2 className="recipeName"> {recipe.recipe_name}</h2>
+                  {/*                 <p className="recipeDesc"> {recipe.description}</p>
+                   */}{" "}
+                  <p className="recipeText"> Prep Time: {recipe.prep_time}</p>
+                  <p className="recipeText"> Cook Time: {recipe.cook_time}</p>
+                  <p className="recipeText">
+                    {" "}
+                    Serving Size: {recipe.serving_size}
+                  </p>
+                </div>
               </div>
-            </div>
-          </>
-        ))}
+            </>
+          ))}
+        </div>
       </div>
     </div>
   );

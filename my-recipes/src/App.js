@@ -20,12 +20,16 @@ function App() {
       <div className="App">
         <Route exact path="/register">
           <Nav />
-          <RegisterForm />
+          <ToastProvider>
+            <RegisterForm setToast={setToast} />
+          </ToastProvider>
         </Route>
 
-        <Route exact path="/login">
+        <Route exact path="/">
           <Nav />
-          <LoginForm />
+          <ToastProvider>
+            <LoginForm toast={toast} setToast={setToast} />
+          </ToastProvider>
         </Route>
 
         <Switch>

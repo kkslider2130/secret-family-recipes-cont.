@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import companylogo from "../../company-logo.png";
 
@@ -34,8 +33,6 @@ function Nav() {
       <NavBarContainer>
         <nav className="navigation">
           <img src={companylogo} className="company-logo" alt="company-logo" />
-          <Link to="/register">Sign Up</Link>
-          <Link to="/login">Log in</Link>
         </nav>
       </NavBarContainer>
     </div>

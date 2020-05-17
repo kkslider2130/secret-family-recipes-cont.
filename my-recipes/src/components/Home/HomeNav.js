@@ -29,6 +29,10 @@ const HomeNavBarContainer = styled.div`
   }
 `;
 function HomeNav() {
+  const logout = () => {
+    localStorage.removeItem("user_id");
+    localStorage.removeItem("token");
+  };
   return (
     <div className="App">
       <HomeNavBarContainer>
@@ -43,6 +47,9 @@ function HomeNav() {
           <Link to="/newRecipe">+ New Recipe</Link>
           <Link to="/user_recipes">My Recipes</Link>
           <Link to="/favorites">Favorites</Link>
+          <Link onClick={logout} to="/">
+            Logout
+          </Link>
         </nav>
       </HomeNavBarContainer>
     </div>
